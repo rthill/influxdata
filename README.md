@@ -1,8 +1,16 @@
 # smarthome-influxdata
-Plugin to store data from smarthome.py in a InfluxData TSDB i.e. for graphing with Grafana or Chronograf.
+Plugin to store data from smarthome.py in InfluxData TSDB i.e. for graphing with Grafana or Chronograf.
 This plugin uses InfluxData UDP line protocol for non-blocking execution.
 
 Thanks to SgtSeppel for the initial plugin which can be found here: https://github.com/SgtSeppel/influxdb
+I'd choose to implement UDP over the initial implementation because I run my InfluxData server in the cloud over VPN. This setup has some latency and the original plugin blocked my whole smarthome.py including logics not executed.
+
+## Installation
+<pre>
+cd smarthome.py directory
+cd plugins
+git clone https://github.com/rthill/influxdata.git
+</pre>
 
 ## Configuration
 ### plugin.conf
