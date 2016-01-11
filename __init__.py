@@ -26,7 +26,7 @@ logger = logging.getLogger('')
 
 class InfluxData:
     def __init__(self, smarthome, influx_host='localhost', influx_port=8089, influx_keyword='influx'):
-        logger.warn('Init InfluxData')
+        logger.info('Init InfluxData')
         self._sh = smarthome
         self.influx_host = influx_host
         self.influx_port = influx_port
