@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/rthill/influxdata/badge.svg?branch=master)](https://coveralls.io/github/rthill/influxdata?branch=master)
+
 # smarthome-influxdata
 Plugin to store data from smarthome.py in InfluxData TSDB i.e. for graphing with Grafana or Chronograf.
 This plugin uses InfluxData UDP line protocol for non-blocking execution.
