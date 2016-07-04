@@ -18,11 +18,15 @@
 
 import logging
 import socket
+from lib.model.smartplugin import SmartPlugin
 
 logger = logging.getLogger('')
 
 
-class InfluxData:
+class InfluxData(SmartPlugin):
+    PLUGIN_VERSION = "1.0.0"
+    ALLOW_MULTIINSTANCE = False
+
     def __init__(self, smarthome, influx_host='localhost', influx_port=8089, influx_keyword='influx'):
         logger.info('Init InfluxData')
         self._sh = smarthome
