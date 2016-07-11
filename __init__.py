@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
+# vim: set encoding=utf-8 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 #########################################################################
 #  Copyright 2016 Raoul Thill                       raoul.thill@gmail.com
 #########################################################################
-#  This plugin is free software: you can redistribute it and/or modify
+#  This file is part of SmartHomeNG.
+#
+#  SmartHomeNG is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 #
-#  This plugin is distributed in the hope that it will be useful,
+#  SmartHomeNG is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  along with SmartHomeNG. If not, see <http://www.gnu.org/licenses/>.
 #########################################################################
 
 import logging
 import socket
 from lib.model.smartplugin import SmartPlugin
-
-logger = logging.getLogger('')
 
 
 class InfluxData(SmartPlugin):
@@ -28,7 +29,8 @@ class InfluxData(SmartPlugin):
     ALLOW_MULTIINSTANCE = False
 
     def __init__(self, smarthome, influx_host='localhost', influx_port=8089, influx_keyword='influx'):
-        logger.info('Init InfluxData')
+        self.logger = logging.getLogger(__name__)
+        self.logger.info('Init InfluxData')
         self._sh = smarthome
         self.influx_host = influx_host
         self.influx_port = influx_port
@@ -49,16 +51,16 @@ class InfluxData(SmartPlugin):
             sock.close()
             del sock
         except Exception as e:
-            logger.warning(
-                    "InfluxData: Problem sending data to {}:{}: {}".format(self.influx_host, self.influx_port, e))
+            self.logger.warning(
+                "InfluxData: Problem sending data to {}:{}: {}".format(self.influx_host, self.influx_port, e))
             pass
         else:
-            logger.debug("InfluxData: Sending data to {}:{}: {}".format(self.influx_host, self.influx_port, data))
+            self.logger.debug("InfluxData: Sending data to {}:{}: {}".format(self.influx_host, self.influx_port, data))
 
     def parse_item(self, item):
         if self.influx_keyword in item.conf:
             if item.type() not in ['num', 'bool']:
-                logger.debug("InfluxData: only supports 'num' and 'bool' as types. Item: {} ".format(item.id()))
+                self.logger.debug("InfluxData: only supports 'num' and 'bool' as types. Item: {} ".format(item.id()))
                 return
             self._items.append(item)
             return self.update_item
